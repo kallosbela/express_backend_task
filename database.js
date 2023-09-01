@@ -3,7 +3,7 @@ const dotenv = require('dotenv').config();
 
 // MySQL configuration
 
-const db_url = `${{shared.MYSQL_URL}}`;
+const db_url = `${shared.MYSQL_URL}`;
 const db = mysql.createConnection(db_url);
 
 db.connect((err) => {
