@@ -2,45 +2,45 @@ const express = require("express");
 const router = express.Router();
 const db = require("../database")
 
-// GET endpoint for ME table
+// GET endpoint for TETELEK table
 router.get("/", (req, res) => {
-  db.query("SELECT * FROM ME", (err, results) => {
+  db.query("SELECT * FROM TETELEK", (err, results) => {
     if (err) throw err;
     res.json(results);
   });
 });
 
-// POST endpoint for ME table
+// POST endpoint for TETELEK table
 router.post("/", (req, res) => {
-  const { KOD, NEV } = req.body;
+  const { CSZ, MENNYISEG, EGYSEGAR } = req.body;
   db.query(
-    "INSERT INTO ME (KOD, NEV) VALUES (?, ?)",
-    [KOD, NEV],
+    "INSERT INTO TETELEK (CSZ, MENNYISEG, EGYSEGAR) VALUES (?, ?)",
+    [CSZ, MENNYISEG, EGYSEGAR],
     (err, result) => {
       if (err) throw err;
-      res.send("ME record inserted.");
+      res.send("TETELEK record inserted.");
     }
   );
 });
 
-// Update endpoint for ME table
-router.put('/:KOD', (req, res) => {
-  const KOD = req.params.KOD;
-  const { NEV } = req.body;
+// Update endpoint for TETELEK table
+router.put('/:ID', (req, res) => {
+  const ID = req.params.ID;
+  const { CSZ, MENNYISEG, EGYSEGAR } = req.body;
   
-  db.query('UPDATE ME SET NEV = ? WHERE KOD = ?', [NEV, KOD], (err, result) => {
+  db.query('UPDATE TETELEK SET CSZ = ?, SET MENNYISEG = ?, SET EGYSEGAR = ? WHERE ID = ?', [CSZ, MENNYISEG, EGYSEGAR, ID], (err, result) => {
     if (err) throw err;
-    res.send(`ME record with KOD ${KOD} updated.`);
+    res.send(`TETELEK record with ID ${ID} updated.`);
   });
 });
 
-// Delete endpoint for ME table
-router.delete('/:KOD', (req, res) => {
-  const KOD = req.params.KOD;
+// Delete endpoint for TETELEK table
+router.delete('/:ID', (req, res) => {
+  const ID = req.params.ID;
 
-  db.query('DELETE FROM ME WHERE KOD = ?', [KOD], (err, result) => {
+  db.query('DELETE FROM TETELEK WHERE ID = ?', [ID], (err, result) => {
     if (err) throw err;
-    res.send(`ME record with KOD ${KOD} deleted.`);
+    res.send(`TETELEK record with ID ${ID} deleted.`);
   });
 });
 

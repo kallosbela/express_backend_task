@@ -29,28 +29,28 @@ router.post("/", async (req, res) => {
 // Update endpoint for CIKK table
 router.put("/:CSZ", (req, res) => {
   const CSZ = req.params.CSZ;
-  const { NEV } = req.body;
+  const { NEV, ME } = req.body;
 
   db.query(
-    "UPDATE CIKK SET NEV = ? WHERE KOD = ?",
-    [NEV, KOD],
+    "UPDATE CIKK SET NEV = ?, SET ME = ? WHERE CSZ = ?",
+    [NEV, ME, CSZ],
     (err, result) => {
       if (err) {
         console.log(err);
         res.status(500).send(err.sqlMessage);
       }
-      res.send(`CIKK record with KOD ${KOD} updated.`);
+      res.send(`CIKK record with CSZ ${CSZ} updated.`);
     }
   );
 });
 
 // Delete endpoint for CIKK table
-router.delete("/:KOD", (req, res) => {
-  const KOD = req.params.KOD;
+router.delete("/:CSZ", (req, res) => {
+  const CSZ = req.params.CSZ;
 
-  db.query("DELETE FROM CIKK WHERE KOD = ?", [KOD], (err, result) => {
+  db.query("DELETE FROM CIKK WHERE CSZ = ?", [CSZ], (err, result) => {
     if (err) throw err;
-    res.send(`CIKK record with KOD ${KOD} deleted.`);
+    res.send(`CIKK record with CSZ ${CSZ} deleted.`);
   });
 });
 
