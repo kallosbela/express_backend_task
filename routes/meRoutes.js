@@ -29,7 +29,10 @@ router.put('/:KOD', (req, res) => {
   const { NEV } = req.body;
   
   db.query('UPDATE ME SET NEV = ? WHERE KOD = ?', [NEV, KOD], (err, result) => {
-    if (err) throw err;
+    if (err) {
+      console.log(err)
+      return err
+    };
     res.send(`ME record with KOD ${KOD} updated.`);
   });
 });
@@ -42,11 +45,9 @@ router.delete('/:KOD', (req, res) => {
   db.query('SELECT COUNT(*) as count FROM CIKK WHERE ME = ?', [KOD], (err, results) => {
     if (err) throw err;
     const count = results[0].count;
-    console.log("kiírjuk a count-ot:", count)
     if (count > 0) {
       res.status(400).json({ message: `ME record with KOD ${KOD} cannot be deleted because it is referenced in CIKK.` });
     } else {
-      // If no references found, proceed with deletion
       db.query('DELETE FROM ME WHERE KOD = ?', [KOD], (err, result) => {
         if (err) throw err;
         res.send(`ME record with KOD ${KOD} deleted.`);
