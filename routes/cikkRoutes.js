@@ -5,7 +5,10 @@ const db = require("../database");
 // GET endpoint for CIKK table
 router.get("/", (req, res) => {
   db.query("SELECT * FROM CIKK", (err, results) => {
-    if (err) throw err;
+    if (err) {
+      console.log(err);
+      res.status(500).send(err.message);
+    }
     res.json(results);
   });
 });
@@ -49,7 +52,10 @@ router.delete("/:CSZ", (req, res) => {
   const CSZ = req.params.CSZ;
 
   db.query("DELETE FROM CIKK WHERE CSZ = ?", [CSZ], (err, result) => {
-    if (err) throw err;
+    if (err) {
+      console.log(err);
+      res.status(500).send(err.message);
+    }
     res.send(`CIKK record with CSZ ${CSZ} deleted.`);
   });
 });

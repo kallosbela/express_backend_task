@@ -5,7 +5,10 @@ const db = require("../database");
 // GET endpoint for ME table
 router.get("/", (req, res) => {
   db.query("SELECT * FROM ME", (err, results) => {
-    if (err) throw err;
+    if (err) {
+      console.log(err);
+      res.status(500).send(err.message);
+    }
     res.json(results);
   });
 });
@@ -17,7 +20,10 @@ router.post("/", (req, res) => {
     "INSERT INTO ME (KOD, NEV) VALUES (?, ?)",
     [KOD, NEV],
     (err, result) => {
-      if (err) throw err;
+      if (err) {
+        console.log(err);
+        res.status(500).send(err.message);
+      }
       res.send("ME record inserted.");
     }
   );
@@ -46,17 +52,21 @@ router.delete("/:KOD", (req, res) => {
     "SELECT COUNT(*) as count FROM CIKK WHERE ME = ?",
     [KOD],
     (err, results) => {
-      if (err) throw err;
+      if (err) {
+        console.log(err);
+        res.status(500).send(err.message);
+      }
       const count = results[0].count;
       if (count > 0) {
-        res
-          .status(400)
-          .json({
-            message: `ME record with KOD ${KOD} cannot be deleted because it is referenced in CIKK.`,
-          });
+        res.status(400).json({
+          message: `ME record with KOD ${KOD} cannot be deleted because it is referenced in CIKK.`,
+        });
       } else {
         db.query("DELETE FROM ME WHERE KOD = ?", [KOD], (err, result) => {
-          if (err) throw err;
+          if (err) {
+            console.log(err);
+            res.status(500).send(err.message);
+          }
           res.send(`ME record with KOD ${KOD} deleted.`);
         });
       }
