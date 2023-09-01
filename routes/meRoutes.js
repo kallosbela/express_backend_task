@@ -34,14 +34,26 @@ router.put('/:KOD', (req, res) => {
   });
 });
 
-// Delete endpoint for ME table
+// Delete endpoint for ME table 
 router.delete('/:KOD', (req, res) => {
   const KOD = req.params.KOD;
 
-  db.query('DELETE FROM ME WHERE KOD = ?', [KOD], (err, result) => {
+  // Check if there are any records in CIKK where ME matches KOD
+  db.query('SELECT COUNT(*) as count FROM CIKK WHERE ME = ?', [KOD], (err, results) => {
     if (err) throw err;
-    res.send(`ME record with KOD ${KOD} deleted.`);
+    const count = results[0].count;
+    console.log("kiírjuk a count-ot:", count)
+    if (count > 0) {
+      res.status(400).json({ message: `ME record with KOD ${KOD} cannot be deleted because it is referenced in CIKK.` });
+    } else {
+      // If no references found, proceed with deletion
+      db.query('DELETE FROM ME WHERE KOD = ?', [KOD], (err, result) => {
+        if (err) throw err;
+        res.send(`ME record with KOD ${KOD} deleted.`);
+      });
+    }
   });
 });
+
 
 module.exports = router
