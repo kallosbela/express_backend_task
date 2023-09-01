@@ -28,7 +28,7 @@ router.put('/:ID', (req, res) => {
   const ID = req.params.ID;
   const { CSZ, MENNYISEG, EGYSEGAR } = req.body;
   
-  db.query('UPDATE TETELEK SET CSZ = ?, SET MENNYISEG = ?, SET EGYSEGAR = ? WHERE ID = ?', [CSZ, MENNYISEG, EGYSEGAR, ID], (err, result) => {
+  db.query('UPDATE TETELEK SET CSZ = ?, MENNYISEG = ?, EGYSEGAR = ? WHERE ID = ?', [CSZ, MENNYISEG, EGYSEGAR, ID], (err, result) => {
     if (err) throw err;
     res.send(`TETELEK record with ID ${ID} updated.`);
   });
