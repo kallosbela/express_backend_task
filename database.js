@@ -2,7 +2,7 @@ const mysql = require("mysql2");
 const dotenv = require('dotenv').config();
 
 // MySQL configuration
-const db = mysql.createConnection(DB_URL);
+const db = mysql.createConnection(`{{DB_URL}}`);
 
 db.connect((err) => {
   if (err) {
