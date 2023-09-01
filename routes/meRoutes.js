@@ -31,7 +31,7 @@ router.put("/:KOD", (req, res) => {
   db.query("UPDATE ME SET NEV = ? WHERE KOD = ?", [NEV, KOD], (err, result) => {
     if (err) {
       console.log(err.message);
-      return err.message;
+      throw err.sqlState;
     }
     res.send(`ME record with KOD ${KOD} updated.`);
   });
