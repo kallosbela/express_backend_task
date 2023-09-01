@@ -14,7 +14,7 @@ router.get("/", (req, res) => {
 router.post("/", (req, res) => {
   const { CSZ, MENNYISEG, EGYSEGAR } = req.body;
   db.query(
-    "INSERT INTO TETELEK (CSZ, MENNYISEG, EGYSEGAR) VALUES (?, ?)",
+    "INSERT INTO TETELEK (CSZ, MENNYISEG, EGYSEGAR) VALUES (?, ?, ?)",
     [CSZ, MENNYISEG, EGYSEGAR],
     (err, result) => {
       if (err) throw err;

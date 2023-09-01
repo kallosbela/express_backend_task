@@ -11,9 +11,9 @@ const meRoutes = require("./routes/meRoutes");
 const cikkRoutes = require("./routes/cikkRoutes");
 const tetelekRoutes = require("./routes/tetelekRoutes");
 
-app.use("/me", meRoutes);
-app.use("/cikk", cikkRoutes);
-app.use("/tetelek", tetelekRoutes);
+app.use("/api/me", meRoutes);
+app.use("/api/cikk", cikkRoutes);
+app.use("/api/tetelek", tetelekRoutes);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
