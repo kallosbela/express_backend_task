@@ -1,10 +1,8 @@
 const mysql = require("mysql2");
-const dotenv = require('dotenv').config();
+// const dotenv = require('dotenv').config();
 
 // MySQL configuration
-
-const db_url = `${shared.MYSQL_URL}`;
-const db = mysql.createConnection(db_url);
+const db = mysql.createConnection(shared.DB_URL);
 
 db.connect((err) => {
   if (err) {
