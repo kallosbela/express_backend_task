@@ -56,7 +56,7 @@ router.delete("/:ID", (req, res) => {
       console.log(err);
       res.status(500).send(err.message);
     }
-    res.send(`TETELEK record with ID ${ID} deleted.`);
+    res.send({message:`TETELEK record deleted`, status: 201, result: result});
   });
 });
 
