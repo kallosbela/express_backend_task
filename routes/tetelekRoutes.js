@@ -24,7 +24,7 @@ router.post("/", (req, res) => {
         console.log(err);
         res.status(500).send(err.message);
       }
-      res.send("TETELEK record inserted.");
+      res.json(result);
     }
   );
 });
