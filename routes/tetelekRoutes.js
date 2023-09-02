@@ -24,7 +24,7 @@ router.post("/", (req, res) => {
         console.log(err);
         res.status(500).send(err.message);
       }
-      res.send({message:`TETELEK record inserted with ID ${result.insertId}`, status: 201});
+      res.send({message:`TETELEK record inserted with ID ${result.insertId}`, status: 201, newId: result.insertId});
     }
   );
 });
