@@ -5,10 +5,10 @@ const jwt = require("jsonwebtoken");
 router.post("/", async (req, res) => {
   const { user, password } = req.body;
   if (user === "pmcode" && password === "titok1234") {
-    const jwtToken = jwt.sign({ user }, "secret", 7200);
-    res.json({message: "Welcome Back!", token: jwtToken});
+    const jwtToken = jwt.sign({ user }, "secret", { expiresIn: 7200 });
+    res.json({ message: "Welcome Back!", token: jwtToken });
   } else {
-    res.status(401).json({message: "Username or password does not match!"})
+    res.status(401).json({ message: "Username or password does not match!" });
   }
 });
 
