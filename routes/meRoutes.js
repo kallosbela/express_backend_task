@@ -29,17 +29,17 @@ router.post("/", (req, res) => {
   );
 });
 
-// Update endpoint for ME table
+// Put endpoint for ME table
 router.put("/:KOD", (req, res) => {
-  const KOD = req.params.KOD;
-  const { NEV } = req.body;
+  const KOD_ = req.params.KOD;
+  const { KOD, NEV } = req.body;
 
-  db.query("UPDATE ME SET NEV = ? WHERE KOD = ?", [NEV, KOD], (err, result) => {
+  db.query("UPDATE ME SET KOD = ?, NEV = ? WHERE KOD = ?", [KOD, NEV, KOD_], (err, result) => {
     if (err) {
       console.log(err);
       res.status(500).send(err.message);
     }
-    res.send(`ME record with KOD ${KOD} updated.`);
+    res.send(`ME record with KOD ${KOD_} updated.`);
   });
 });
 
