@@ -30,19 +30,19 @@ router.post("/", async (req, res) => {
 });
 
 // Update endpoint for CIKK table
-router.put("/:CSZ", (req, res) => {
-  const CSZ = req.params.CSZ;
-  const { NEV, ME } = req.body;
+router.put("/:CSZ_", (req, res) => {
+  const CSZ_ = req.params.CSZ_;
+  const { CSZ, NEV, ME } = req.body;
 
   db.query(
-    "UPDATE CIKK SET NEV = ?, SET ME = ? WHERE CSZ = ?",
-    [NEV, ME, CSZ],
+    "UPDATE CIKK SET CSZ = ?, NEV = ?, ME = ? WHERE CSZ = ?",
+    [CSZ, NEV, ME, CSZ_],
     (err, result) => {
       if (err) {
         console.log(err);
         res.status(500).send(err.sqlMessage);
       }
-      res.send(`CIKK record with CSZ ${CSZ} updated.`);
+      res.send(`CIKK record with CSZ ${CSZ_} updated.`);
     }
   );
 });
